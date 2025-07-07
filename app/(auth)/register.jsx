@@ -8,25 +8,20 @@ import ThemedView from '../../components/ThemedView'
 import ThemedButton from '../../components/ThemedButton'
 import ThemedTextInput from '../../components/ThemedTextInput.jsx'
 import { useState } from 'react'
-import { useUser } from '../../hooks/useUser.jsx'
+import { useAuth } from '../contexts/AuthContext.jsx'
 
 // just a page utilizing themed components we created. Link to the register page and some inline themes from stylesheet at the bottom
 
-const Register = () => {
-    const[email, setEmail] = useState ('')
-    const[password, setPassword] = useState ('')
+export default function Register() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { signUp } = useAuth();
 
-
-    const {user, register} = useUser ()
-
-
-        const handleSubmit = async () => {
-        try{
-            await register(email, password)
-        }   catch (error){
-
-        }
-    }
+  const handleRegister = async () => {
+    const { error } = await signUp(email, password);
+    if (error) alert(error.message);
+    else alert("Registration successful! Check your email for confirmation.");
+  };
 
 
 
@@ -78,7 +73,6 @@ const Register = () => {
   );
 };
 
-export default Register
 
 const styles = StyleSheet.create({
     container: {

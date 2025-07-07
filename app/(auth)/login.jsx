@@ -12,20 +12,16 @@ import { useUser } from '../../hooks/useUser.jsx'
 
 // just a page utilizing themed components we created. Link to the register page and some inline themes from stylesheet at the bottom
 
-const Login = () => {
-    const[email, setEmail] = useState ('')
-    const[password, setPassword] = useState ('')
+export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { signIn } = useAuth();
 
-    const { login } = useUser
-
-
-    const handleSubmit = async () => {
-          try{
-            await login(email, password)
-        }   catch (error){
-
-        }
-    }
+  const handleLogin = async () => {
+    const { error } = await signIn(email, password);
+    if (error) alert(error.message);
+    else alert("Login successful!");
+  };
 
 
   return (
@@ -76,7 +72,7 @@ const Login = () => {
 
 // ref: [styles.btn, pressed && styles.pressed]}>  means only apply the pressed value when the presses is true
 
-export default Login
+
 
 const styles = StyleSheet.create({
     container: {

@@ -3,7 +3,8 @@ import React from 'react'
 import { Slot, Stack } from 'expo-router'
 import { Colors} from "../constants/Colors.js"
 import { StatusBar } from 'expo-status-bar'
-import { UserProvider } from '../contexts/UserContext.jsx'
+import { AuthProvider } from '../contexts/AuthContext.jsx'
+
 
 const RootLayout = () => {
 
@@ -12,7 +13,7 @@ const theme = Colors[colorScheme] ?? Colors.light  //Logic: applies the color pa
 
 //tells the expo-router how to render in conjunction with the index page & adds navigation features & can also add global options to all the screens
   return (
-    <UserProvider>
+    <AuthProvider>
         <StatusBar value="auto" />
         <Stack screenOptions ={{ 
             headerStyle: { backgroundColor: theme.navBackground }, // picks the header colour from the colors.js according to user device (light or dark)
@@ -26,7 +27,7 @@ const theme = Colors[colorScheme] ?? Colors.light  //Logic: applies the color pa
             <Stack.Screen name="contact" options={{ title: 'Contact'}}/> 
 
         </Stack>
-    </UserProvider>
+    </AuthProvider>
   )
 }
 
