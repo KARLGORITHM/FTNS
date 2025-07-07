@@ -8,7 +8,7 @@ import ThemedView from '../../components/ThemedView.jsx'
 import ThemedButton from '../../components/ThemedButton.jsx'
 import ThemedTextInput from '../../components/ThemedTextInput.jsx'
 import { useState } from 'react'
-import { useUser } from '../../hooks/useUser.jsx'
+import { useAuth } from '../../contexts/AuthContext.jsx'
 
 // just a page utilizing themed components we created. Link to the register page and some inline themes from stylesheet at the bottom
 
@@ -53,7 +53,7 @@ export default function Login() {
 
 
 
-       <ThemedButton onPress={handleSubmit}>
+       <ThemedButton onPress={handleLogin}>
             <ThemedText style={{color: '#f2f2f2'}}> Login </ThemedText>
         </ThemedButton>
 
