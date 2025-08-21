@@ -49,9 +49,9 @@ export default function AppLayout() {
           <Tabs
             screenOptions={{
               headerShown: false, // hide headers for now
-              tabBarActiveTintColor: '#2f95dc', // active tab color
-              tabBarInactiveTintColor: 'gray', // inactive tab color
-              tabBarStyle: { backgroundColor: '#fff', height: 65 }, // styling for the tab bar
+              tabBarActiveTintColor: theme.iconColorFocused || Colors.primary, // active tab color
+              tabBarInactiveTintColor: theme.iconColor, // inactive tab color
+              tabBarStyle: { backgroundColor: theme.navBackground, height: 65 }, // styling for the tab bar
             }}
           >
             {/* Home Tab */}

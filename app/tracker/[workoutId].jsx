@@ -1,36 +1,40 @@
-import {StyleSheet} from 'react-native'
+// /app/tracker/[workoutId].jsx
+import { useContext } from 'react';
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import { ThemeContext } from '../../context/ThemeContext';
+import { useRouter, useSearchParams } from 'expo-router';
 
-import Spacer from "../../components/Spacer"
-import ThemedText from "../../components/ThemedText"
-import ThemedView from '../../components/ThemedView'
+export default function WorkoutDetails() {
+  const { theme } = useContext(ThemeContext); // Get the current theme
+  const { workoutId } = useSearchParams(); // Get the dynamic route param
+  const router = useRouter(); // Optional: for navigation if needed
 
-const Workouts = () => {
-    return(
-        <ThemedView style={styles.container} safe={true}>
-
-            <Spacer />
-
-            <ThemedText title={true} style={styles.heading}>
-                Your Workouts
-            </ThemedText>
-            
-
-
-        </ThemedView>
-    )
+  return (
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+      <View style={styles.content}>
+        <Text style={[styles.title, { color: theme.title }]}>
+          Workout Details
+        </Text>
+        <Text style={[styles.subtitle, { color: theme.text }]}>
+          Viewing details for workout ID: {workoutId}
+        </Text>
+        <Text style={[styles.info, { color: theme.text }]}>
+          This page is a placeholder. Add workout stats, logs, or any other details here.
+        </Text>
+      </View>
+    </SafeAreaView>
+  );
 }
 
-export default Workouts
-
-const styles= StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "stretch",
-    },
-    heading: {
-        fontWeight: "bold",
-        fontSize: 18,
-        textAlign: "center",
-    },
-})
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  content: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
+  title: { fontSize: 28, fontWeight: 'bold', marginBottom: 10 },
+  subtitle: { fontSize: 16, textAlign: 'center', marginBottom: 10 },
+  info: { fontSize: 14, textAlign: 'center' },
+});
