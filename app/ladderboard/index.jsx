@@ -1,30 +1,34 @@
-// app/social/index.jsx
+// app/ladderboard/index.jsx
 import { View, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
 import { useRouter } from 'expo-router';
 
-export default function Social() {
+export default function Ladderboard() {
   const router = useRouter();
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         {/* Page title */}
-        <Text style={styles.title}>Social Feed</Text>
+        <Text style={styles.title}>Ladderboard</Text>
         <Text style={styles.subtitle}>
-          This page will display lift highlights, achievements, and posts from other users.
+          This page will display rankings, tiered lifts, and competitive stats of users.
         </Text>
 
-        {/* Placeholder navigation button */}
+        {/* Placeholder button for navigation testing */}
         <Button
           title="Go to Tracker"
           onPress={() => router.push('/tracker')}
+        />
+        <Button
+          title="Go to Profile"
+          onPress={() => router.push('/profile')}
         />
       </View>
     </SafeAreaView>
   );
 }
 
-// Styles for Social tab
+// Styles for Ladderboard tab
 const styles = StyleSheet.create({
   container: {
     flex: 1,

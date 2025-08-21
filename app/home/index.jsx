@@ -1,47 +1,65 @@
-import { StyleSheet, useColorScheme} from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router'
-import { Colors} from "../constants/Colors.js"
-import ThemedView from '../components/ThemedView.jsx'
-import Spacer from '../components/Spacer'
-import ThemedText from '../components/ThemedText'
+// app/home/index.jsx
+import { View, Text, StyleSheet, SafeAreaView, Button, ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
 
-const About = () => {
-
-
-  const colorScheme = useColorScheme()
-  const theme = Colors[colorScheme] ?? Colors.light
+export default function Home() {
+  const router = useRouter();
 
   return (
-    <ThemedView style={[styles.container, {backgroundColor: theme.background}]}>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.content}>
+        {/* Page title */}
+        <Text style={styles.title}>Welcome to FTNS</Text>
+        <Text style={styles.subtitle}>
+          Track your lifts, verify your reps, and climb the ladderboard. Your strength journey starts here!
+        </Text>
 
-      <ThemedText style={styles.title}>About Page</ThemedText>
-
-      <Link href="/" style={styles.link} push> 
-      <ThemedText> Back Home </ThemedText>
-      </Link> 
-
-    </ThemedView>
-  )
+        {/* Quick navigation buttons for testing */}
+        <Button
+          title="Go to Tracker"
+          onPress={() => router.push('/tracker')}
+        />
+        <Button
+          title="Go to Ladderboard"
+          onPress={() => router.push('/ladderboard')}
+        />
+        <Button
+          title="Go to Profile"
+          onPress={() => router.push('/profile')}
+        />
+        <Button
+          title="Go to Social"
+          onPress={() => router.push('/social')}
+        />
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
 
-//creates a pressable link, href="/" takes you back to the index.jsx i.e Home screen ref. <Link href="/" style={styles.link}> Back Home</Link
-
-export default About
-
+// Styles for Home tab
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center', 
-     },
-    title: {                          //this is applied directly to the text itself (bold) on top of the all in all styling we applied to the view (center font size and so on)
-        fontWeight: 'bold',
-        fontSize: 18
-    },
-    link: {                          //link style
-        marginVertical: 10,
-        borderBottomWidth: 1
-    }
-
-})
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  content: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 40,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    color: '#2f95dc',
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 18,
+    color: 'gray',
+    textAlign: 'center',
+    marginBottom: 30,
+  },
+});

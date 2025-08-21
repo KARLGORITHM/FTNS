@@ -1,22 +1,22 @@
-// app/social/index.jsx
+// app/tracker/add.jsx
 import { View, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
 import { useRouter } from 'expo-router';
 
-export default function Social() {
+export default function AddLift() {
   const router = useRouter();
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         {/* Page title */}
-        <Text style={styles.title}>Social Feed</Text>
+        <Text style={styles.title}>Add a New Lift</Text>
         <Text style={styles.subtitle}>
-          This page will display lift highlights, achievements, and posts from other users.
+          Here you will be able to log a new lift with details like weight, reps, RIR, etc.
         </Text>
 
-        {/* Placeholder navigation button */}
+        {/* Navigation / placeholder button */}
         <Button
-          title="Go to Tracker"
+          title="Back to Tracker Home"
           onPress={() => router.push('/tracker')}
         />
       </View>
@@ -24,7 +24,7 @@ export default function Social() {
   );
 }
 
-// Styles for Social tab
+// Styles for AddLift
 const styles = StyleSheet.create({
   container: {
     flex: 1,

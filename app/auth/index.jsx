@@ -1,30 +1,32 @@
-// app/social/index.jsx
-import { View, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
+// app/auth/index.jsx
+import { View, Text, StyleSheet, Button, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
 
-export default function Social() {
+export default function AuthIndex() {
   const router = useRouter();
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        {/* Page title */}
-        <Text style={styles.title}>Social Feed</Text>
+        <Text style={styles.title}>Welcome to FTNS</Text>
         <Text style={styles.subtitle}>
-          This page will display lift highlights, achievements, and posts from other users.
+          Please log in or register to start tracking your lifts.
         </Text>
 
-        {/* Placeholder navigation button */}
+        {/* Navigation buttons */}
         <Button
-          title="Go to Tracker"
-          onPress={() => router.push('/tracker')}
+          title="Login"
+          onPress={() => router.push('/auth/login')}
+        />
+        <Button
+          title="Register"
+          onPress={() => router.push('/auth/register')}
         />
       </View>
     </SafeAreaView>
   );
 }
 
-// Styles for Social tab
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -41,6 +43,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#2f95dc',
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,

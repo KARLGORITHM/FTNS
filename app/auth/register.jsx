@@ -1,26 +1,26 @@
-// app/profile/index.jsx
-import { View, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
+// app/auth/register.jsx
+import { View, Text, StyleSheet, Button, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
 
-export default function ProfileHome() {
+export default function Register() {
   const router = useRouter();
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Profile</Text>
+        <Text style={styles.title}>Register</Text>
         <Text style={styles.subtitle}>
-          Welcome to your profile! Here you can see your stats, achievements, and personal info.
+          Here you will create a new account to start tracking your lifts.
         </Text>
 
-        {/* Navigation buttons */}
+        {/* Temporary navigation */}
         <Button
-          title="Go to Settings"
-          onPress={() => router.push('/profile/settings')}
+          title="Go to Login"
+          onPress={() => router.push('/auth/login')}
         />
         <Button
-          title="Go to Videos"
-          onPress={() => router.push('/profile/videos')}
+          title="Back to Auth Home"
+          onPress={() => router.push('/auth')}
         />
       </View>
     </SafeAreaView>

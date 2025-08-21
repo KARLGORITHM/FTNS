@@ -1,30 +1,35 @@
-// app/social/index.jsx
+// app/tracker/index.jsx
 import { View, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
 import { useRouter } from 'expo-router';
 
-export default function Social() {
+export default function TrackerHome() {
   const router = useRouter();
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        {/* Page title */}
-        <Text style={styles.title}>Social Feed</Text>
+        <Text style={styles.title}>Tracker</Text>
         <Text style={styles.subtitle}>
-          This page will display lift highlights, achievements, and posts from other users.
+          Log your lifts, track progress, and monitor your strength gains.
         </Text>
 
-        {/* Placeholder navigation button */}
-        <Button
-          title="Go to Tracker"
-          onPress={() => router.push('/tracker')}
-        />
+        {/* Navigation buttons to nested screens */}
+        <View style={styles.buttons}>
+          <Button
+            title="Add Lift"
+            onPress={() => router.push('/tracker/add')}
+          />
+          <Button
+            title="History"
+            onPress={() => router.push('/tracker/history')}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
 }
 
-// Styles for Social tab
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -32,8 +37,8 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: 20,
   },
   title: {
@@ -47,5 +52,9 @@ const styles = StyleSheet.create({
     color: 'gray',
     textAlign: 'center',
     marginBottom: 20,
+  },
+  buttons: {
+    width: '100%',
+    gap: 10, // spacing between buttons
   },
 });

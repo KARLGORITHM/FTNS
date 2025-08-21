@@ -1,39 +1,114 @@
-import { StyleSheet, Text, useColorScheme, View } from 'react-native'
-import React from 'react'
-import { Slot, Stack } from 'expo-router'
-import { Colors} from "../constants/Colors.js"
-import { StatusBar } from 'expo-status-bar'
-import { AuthProvider } from '../contexts/AuthContext.jsx'
+// app/_layout.jsx
+import { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native';
+import { Tabs } from 'expo-router';
+import { supabase } from '../lib/supabase'; // Make sure this path points to your supabase client
+import { Ionicons } from '@expo/vector-icons';
 
+export default function AppLayout() {
+  // Local state to track the current session (logged-in user)
+  const [session, setSession] = useState(null);
 
-const RootLayout = () => {
+  // On mount, check if the user is already logged in
+  useEffect(() => {
+    const getSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      setSession(data.session); // Save session in state
+    };
+    getSession();
 
-const colorScheme = useColorScheme()
-const theme = Colors[colorScheme] ?? Colors.light  //Logic: applies the color pallet depending on user device (light or dark) and in case the value is null it set it to light
+    // Listen for auth changes (login/logout)
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session); // Update session when auth state changes
+    });
 
-//tells the expo-router how to render in conjunction with the index page & adds navigation features & can also add global options to all the screens
+    // Cleanup listener on unmount
+    return () => {
+      listener.subscription.unsubscribe();
+    };
+  }, []);
+
+  // If no session exists, redirect user to the Auth flow
+  if (!session) {
+    return (
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: { display: 'none' }, // hide tabs while in auth
+        }}
+      >
+        {/* Auth tab is hidden, just routes user to auth stack */}
+        <Tabs.Screen name="auth" options={{ tabBarButton: () => null }} />
+      </Tabs>
+    );
+  }
+
+  // If user is logged in, show the main app tabs
   return (
-    <AuthProvider>
-        <StatusBar value="auto" />
-        <Stack screenOptions ={{ 
-            headerStyle: { backgroundColor: theme.navBackground }, // picks the header colour from the colors.js according to user device (light or dark)
-            headerTintColor: theme.title,
-        }}> 
-            
-            
+    <SafeAreaView style={{ flex: 1 }}>
+      <Tabs
+        screenOptions={{
+          headerShown: false, // hide headers for now
+          tabBarActiveTintColor: '#2f95dc', // active tab color
+          tabBarInactiveTintColor: 'gray', // inactive tab color
+          tabBarStyle: { backgroundColor: '#fff', height: 65 }, // styling for the tab bar
+        }}
+      >
+        {/* Home Tab */}
+        <Tabs.Screen
+          name="home"
+          options={{
+            title: 'Home',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="home-outline" size={size} color={color} />
+            ),
+          }}
+        />
 
-            <Stack.Screen name="index" options={{ title: 'Home'}}/> 
-            <Stack.Screen name="about" options={{ title: 'About'}}/>
-            <Stack.Screen name="contact" options={{ title: 'Contact'}}/> 
+        {/* Tracker Tab */}
+        <Tabs.Screen
+          name="tracker"
+          options={{
+            title: 'Tracker',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="barbell-outline" size={size} color={color} />
+            ),
+          }}
+        />
 
-        </Stack>
-    </AuthProvider>
-  )
+        {/* Ladderboard Tab */}
+        <Tabs.Screen
+          name="ladderboard"
+          options={{
+            title: 'Ladderboard',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="trophy-outline" size={size} color={color} />
+            ),
+          }}
+        />
+
+        {/* Profile Tab */}
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: 'Profile',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="person-outline" size={size} color={color} />
+            ),
+          }}
+        />
+
+        {/* Social Tab */}
+        <Tabs.Screen
+          name="social"
+          options={{
+            title: 'Social',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="people-outline" size={size} color={color} />
+            ),
+          }}
+        />
+      </Tabs>
+    </SafeAreaView>
+  );
 }
-
-//adds characteristics to each page of the app ref. <Stack.Screen name="index" options={{ title: 'Home'}}/>
-//if I want to hide the header I can add after 'Contact' , headerShown: false
-
-export default RootLayout
-
-const styles = StyleSheet.create({})
