@@ -2,7 +2,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useContext } from 'react';
 import SocialHome from './index'; // Main social screen
-import { ThemeContext } from '../../contexts/ThemeContext';
+import { ThemeContext } from '../../../contexts/ThemeContext';
 
 const Stack = createNativeStackNavigator();
 

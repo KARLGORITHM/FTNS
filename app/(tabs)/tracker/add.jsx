@@ -1,26 +1,26 @@
-// /app/tracker/history.jsx
+// /app/tracker/add.jsx
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
-import { useTheme } from '../../contexts/ThemeContext'; // Import ThemeContext hook
+import { useTheme } from '../../../contexts/ThemeContext'; // Import ThemeContext hook
 
-export default function TrackerHistory() {
+export default function TrackerAdd() {
   // 1️⃣ Get the current theme from context
   const { theme } = useTheme();
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.content}>
-        <Text style={[styles.title, { color: theme.title }]}>Workout History</Text>
+        <Text style={[styles.title, { color: theme.title }]}>Add Workout</Text>
         <Text style={[styles.subtitle, { color: theme.text }]}>
-          Here you'll see a log of all your previous workouts.
+          This page will allow you to log a new workout.
         </Text>
-        {/* Future components: list of workouts, filter by date/type, summary stats */}
+        {/* Future components: form inputs, buttons, workout type selectors */}
       </View>
     </SafeAreaView>
   );
 }
 
-// 2️⃣ Styles
+// 2️⃣ Styles remain mostly static, color comes from theme
 const styles = StyleSheet.create({
   container: {
     flex: 1,

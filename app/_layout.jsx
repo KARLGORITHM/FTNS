@@ -1,104 +1,43 @@
 // app/_layout.jsx
-import { useEffect, useState, useContext } from 'react';
-import { View } from 'react-native';
-import { Tabs } from 'expo-router';
-import { supabase } from '../lib/supabase';
-import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView, StatusBar, Platform } from 'react-native';
 import { ThemeProvider, ThemeContext } from '../contexts/ThemeContext';
-import { Colors } from '../constants/Colors';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useContext } from 'react';
+import { Slot } from 'expo-router';
 
-const DEV_BYPASS_AUTH = true;
-
-function AppLayoutContent() {
-  const { theme } = useContext(ThemeContext);
-  const insets = useSafeAreaInsets();
-  const [session, setSession] = useState(null);
-
-  // Check user session on mount
-  useEffect(() => {
-    const getSession = async () => {
-      const { data } = await supabase.auth.getSession();
-      setSession(data.session);
-    };
-    getSession();
-
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => listener.subscription.unsubscribe();
-  }, []);
-
-  if (!session && !DEV_BYPASS_AUTH) {
-    return (
-      <Tabs
-        screenOptions={{
-          headerShown: false, // hide all headers in Tabs
-          tabBarStyle: { display: 'none' },
-        }}
-      >
-        <Tabs.Screen name="auth" options={{ tabBarButton: () => null }} />
-      </Tabs>
-    );
-  }
-
-  return (
-    <Tabs
-      screenOptions={{
-        headerShown: false, // hide all default headers to avoid double headers
-        tabBarActiveTintColor: theme.iconColorFocused || Colors.primary,
-        tabBarInactiveTintColor: theme.iconColor,
-        tabBarStyle: {
-          backgroundColor: theme.navBackground,
-          height: 45 + insets.bottom,
-          paddingBottom: insets.bottom > 0 ? 5 : 0,
-        },
-      }}
-    >
-      <Tabs.Screen
-        name="home"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="tracker"
-        options={{
-          title: 'Tracker',
-          tabBarIcon: ({ color, size }) => <Ionicons name="barbell-outline" size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="ladderboard"
-        options={{
-          title: 'Ladderboard',
-          tabBarIcon: ({ color, size }) => <Ionicons name="trophy-outline" size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" size={size} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="social"
-        options={{
-          title: 'Social',
-          tabBarIcon: ({ color, size }) => <Ionicons name="people-outline" size={size} color={color} />,
-        }}
-      />
-    </Tabs>
-  );
-}
-
-export default function AppLayout() {
+export default function RootLayout() {
   return (
     <ThemeProvider>
-      <AppLayoutContent />
+      <RootLayoutContent />
     </ThemeProvider>
   );
 }
+
+function RootLayoutContent() {
+  const { theme, themeType } = useContext(ThemeContext);
+
+  // Android-specific: opaque status bar ensures icons respect barStyle
+  const isAndroid = Platform.OS === 'android';
+
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: theme.background,
+      }}
+    >
+      <StatusBar
+        barStyle={themeType === 'dark' ? 'light-content' : 'dark-content'} // White icons in dark mode
+        backgroundColor={theme.background} // Android background
+        translucent={false} // Must be false on Android for barStyle to work
+      />
+
+      {/* Your app screens */}
+      <Slot />
+    </SafeAreaView>
+  );
+}
+
+
+
+
+

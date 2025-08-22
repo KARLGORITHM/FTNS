@@ -1,18 +1,18 @@
-// app/profile/videos.jsx
+// app/profile/index.jsx
 import { useContext } from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
-import { ThemeContext } from '../../contexts/ThemeContext';
+import { ThemeContext } from '../../../contexts/ThemeContext';
 
-export default function ProfileVideos() {
+export default function Profile() {
   const { theme } = useContext(ThemeContext);
   const styles = getStyles(theme);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>My Videos</Text>
+        <Text style={styles.title}>Profile</Text>
         <Text style={styles.subtitle}>
-          Manage and view your uploaded workout videos.
+          View and manage your profile, stats, and settings.
         </Text>
       </View>
     </SafeAreaView>

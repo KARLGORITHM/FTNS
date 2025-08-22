@@ -1,7 +1,7 @@
 // /app/tracker/index.jsx
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
-import { useTheme } from '../../contexts/ThemeContext'; // Import ThemeContext hook
+import { useTheme } from '../../../contexts/ThemeContext'; // Import ThemeContext hook
 
 export default function TrackerIndex() {
   // 1️⃣ Get the current theme from context

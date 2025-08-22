@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import TrackerHome from './index';
 import AddLift from './add';
 import History from './history';
-import { ThemeContext } from '../../contexts/ThemeContext';
+import { ThemeContext } from '../../../contexts/ThemeContext';
 
 const Stack = createNativeStackNavigator();
 

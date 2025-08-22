@@ -1,17 +1,17 @@
-// app/ladderboard/_layout.jsx
+// app/home/_layout.jsx
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useContext } from 'react';
-import LadderboardHome from './index'; // Main ladderboard screen
-import { ThemeContext } from '../../contexts/ThemeContext';
+import HomeScreen from './index'; // Main Home screen
+import { ThemeContext } from '../../../contexts/ThemeContext';
 
 const Stack = createNativeStackNavigator();
 
-export default function LadderboardLayout() {
+export default function HomeLayout() {
   const { theme } = useContext(ThemeContext);
 
   return (
     <Stack.Navigator
-      initialRouteName="LadderboardHome"
+      initialRouteName="HomeScreen"
       screenOptions={{
         headerShown: true, // Show headers
         headerStyle: { backgroundColor: theme.navBackground },
@@ -19,11 +19,11 @@ export default function LadderboardLayout() {
         headerTitleStyle: { fontWeight: 'bold' },
       }}
     >
-      {/* Main Ladderboard tab screen */}
+      {/* Main Home tab screen */}
       <Stack.Screen
-        name="LadderboardHome"
-        component={LadderboardHome}
-        options={{ title: 'Ladderboard' }}
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{ title: 'Home' }}
       />
     </Stack.Navigator>
   );

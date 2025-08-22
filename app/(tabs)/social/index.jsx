@@ -1,20 +1,20 @@
-// /app/home/index.jsx
+// /app/social/index.jsx
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
-import { useTheme } from '../../contexts/ThemeContext';
+import { useTheme } from '../../../contexts/ThemeContext';
 
-export default function Home() {
+export default function Social() {
   // 1️⃣ Get theme from context
   const { theme } = useTheme();
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.content}>
-        <Text style={[styles.title, { color: theme.title }]}>Welcome to FTNS</Text>
+        <Text style={[styles.title, { color: theme.title }]}>Social Feed</Text>
         <Text style={[styles.subtitle, { color: theme.text }]}>
-          Your ultimate strength tracking & verified lifting app.
+          Here you'll see updates from your friends, workout tips, and shared progress.
         </Text>
-        {/* Future components: feed, tips, quick links */}
+        {/* Future components: posts, comments, likes, etc. */}
       </View>
     </SafeAreaView>
   );
@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 20,
   },
   title: {
