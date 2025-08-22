@@ -1,7 +1,7 @@
 // app/profile/settings.jsx
 import { View, Text, Switch, StyleSheet, SafeAreaView } from 'react-native';
 import { useContext } from 'react';
-import { ThemeContext } from '../../context/ThemeContext'; // Make sure this path is correct
+import { ThemeContext } from '../../contexts/ThemeContext'; // Make sure this path is correct
 
 export default function ProfileSettings() {
   // Get current theme, dark mode state, and toggle function from ThemeContext

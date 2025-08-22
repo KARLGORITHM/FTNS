@@ -1,7 +1,7 @@
 // app/index.jsx
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { useContext } from 'react';
-import { ThemeContext } from '../context/ThemeContext'; // Import the ThemeContext
+import { ThemeContext } from '../contexts/ThemeContext'; // Import the ThemeContext
 
 export default function Home() {
   // Get the current theme from the context

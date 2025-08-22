@@ -1,7 +1,7 @@
 // /app/tracker/[workoutId].jsx
 import { useContext } from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
-import { ThemeContext } from '../../context/ThemeContext';
+import { ThemeContext } from '../../contexts/ThemeContext';
 import { useRouter, useSearchParams } from 'expo-router';
 
 export default function WorkoutDetails() {
