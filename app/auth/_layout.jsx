@@ -6,7 +6,7 @@ export default function AuthLayout() {
     // Stack navigator for Auth flow
     <Stack
       screenOptions={{
-        headerShown: true, // show header for login/register pages
+        headerShown: false, // show header for login/register pages
         headerTitleAlign: 'center',
       }}
     >

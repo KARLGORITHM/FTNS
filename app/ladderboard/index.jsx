@@ -1,38 +1,29 @@
-// app/ladderboard/index.jsx
-import { View, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
-import { useRouter } from 'expo-router';
+// /app/ladderboard/index.jsx
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { useTheme } from '../../contexts/ThemeContext';
 
 export default function Ladderboard() {
-  const router = useRouter();
+  // 1️⃣ Get theme from context
+  const { theme } = useTheme();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.content}>
-        {/* Page title */}
-        <Text style={styles.title}>Ladderboard</Text>
-        <Text style={styles.subtitle}>
-          This page will display rankings, tiered lifts, and competitive stats of users.
+        <Text style={[styles.title, { color: theme.title }]}>Ladderboard</Text>
+        <Text style={[styles.subtitle, { color: theme.text }]}>
+          Track your rank and compare with other users.
         </Text>
-
-        {/* Placeholder button for navigation testing */}
-        <Button
-          title="Go to Tracker"
-          onPress={() => router.push('/tracker')}
-        />
-        <Button
-          title="Go to Profile"
-          onPress={() => router.push('/profile')}
-        />
+        {/* Future components: leaderboard list, rankings, user stats */}
       </View>
     </SafeAreaView>
   );
 }
 
-// Styles for Ladderboard tab
+// 2️⃣ Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   content: {
     flex: 1,
@@ -44,12 +35,10 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#2f95dc',
   },
   subtitle: {
     fontSize: 16,
-    color: 'gray',
     textAlign: 'center',
-    marginBottom: 20,
   },
 });
+

@@ -1,65 +1,44 @@
-// app/home/index.jsx
-import { View, Text, StyleSheet, SafeAreaView, Button, ScrollView } from 'react-native';
-import { useRouter } from 'expo-router';
+// /app/home/index.jsx
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { useTheme } from '../../contexts/ThemeContext';
 
 export default function Home() {
-  const router = useRouter();
+  // 1️⃣ Get theme from context
+  const { theme } = useTheme();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
-        {/* Page title */}
-        <Text style={styles.title}>Welcome to FTNS</Text>
-        <Text style={styles.subtitle}>
-          Track your lifts, verify your reps, and climb the ladderboard. Your strength journey starts here!
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+      <View style={styles.content}>
+        <Text style={[styles.title, { color: theme.title }]}>Welcome to FTNS</Text>
+        <Text style={[styles.subtitle, { color: theme.text }]}>
+          Your ultimate strength tracking & verified lifting app.
         </Text>
-
-        {/* Quick navigation buttons for testing */}
-        <Button
-          title="Go to Tracker"
-          onPress={() => router.push('/tracker')}
-        />
-        <Button
-          title="Go to Ladderboard"
-          onPress={() => router.push('/ladderboard')}
-        />
-        <Button
-          title="Go to Profile"
-          onPress={() => router.push('/profile')}
-        />
-        <Button
-          title="Go to Social"
-          onPress={() => router.push('/social')}
-        />
-      </ScrollView>
+        {/* Future components: feed, tips, quick links */}
+      </View>
     </SafeAreaView>
   );
 }
 
-// Styles for Home tab
+// 2️⃣ Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   content: {
-    flexGrow: 1,
-    justifyContent: 'center',
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 40,
   },
   title: {
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 15,
-    color: '#2f95dc',
-    textAlign: 'center',
+    marginBottom: 10,
   },
   subtitle: {
-    fontSize: 18,
-    color: 'gray',
+    fontSize: 16,
     textAlign: 'center',
-    marginBottom: 30,
   },
 });
+

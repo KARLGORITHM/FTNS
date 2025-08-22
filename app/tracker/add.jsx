@@ -1,34 +1,29 @@
-// app/tracker/add.jsx
-import { View, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
-import { useRouter } from 'expo-router';
+// /app/tracker/add.jsx
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { useTheme } from '../../contexts/ThemeContext'; // Import ThemeContext hook
 
-export default function AddLift() {
-  const router = useRouter();
+export default function TrackerAdd() {
+  // 1️⃣ Get the current theme from context
+  const { theme } = useTheme();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.content}>
-        {/* Page title */}
-        <Text style={styles.title}>Add a New Lift</Text>
-        <Text style={styles.subtitle}>
-          Here you will be able to log a new lift with details like weight, reps, RIR, etc.
+        <Text style={[styles.title, { color: theme.title }]}>Add Workout</Text>
+        <Text style={[styles.subtitle, { color: theme.text }]}>
+          This page will allow you to log a new workout.
         </Text>
-
-        {/* Navigation / placeholder button */}
-        <Button
-          title="Back to Tracker Home"
-          onPress={() => router.push('/tracker')}
-        />
+        {/* Future components: form inputs, buttons, workout type selectors */}
       </View>
     </SafeAreaView>
   );
 }
 
-// Styles for AddLift
+// 2️⃣ Styles remain mostly static, color comes from theme
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   content: {
     flex: 1,
@@ -40,12 +35,10 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#2f95dc',
   },
   subtitle: {
     fontSize: 16,
-    color: 'gray',
     textAlign: 'center',
-    marginBottom: 20,
   },
 });
+

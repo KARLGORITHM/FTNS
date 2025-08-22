@@ -1,34 +1,29 @@
-// app/tracker/history.jsx
-import { View, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
-import { useRouter } from 'expo-router';
+// /app/tracker/history.jsx
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { useTheme } from '../../contexts/ThemeContext'; // Import ThemeContext hook
 
-export default function History() {
-  const router = useRouter();
+export default function TrackerHistory() {
+  // 1️⃣ Get the current theme from context
+  const { theme } = useTheme();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.content}>
-        {/* Page title */}
-        <Text style={styles.title}>Workout History</Text>
-        <Text style={styles.subtitle}>
-          This page will show your past workouts, lifts, and stats.
+        <Text style={[styles.title, { color: theme.title }]}>Workout History</Text>
+        <Text style={[styles.subtitle, { color: theme.text }]}>
+          Here you'll see a log of all your previous workouts.
         </Text>
-
-        {/* Navigation / placeholder button */}
-        <Button
-          title="Back to Tracker Home"
-          onPress={() => router.push('/tracker')}
-        />
+        {/* Future components: list of workouts, filter by date/type, summary stats */}
       </View>
     </SafeAreaView>
   );
 }
 
-// Styles for History
+// 2️⃣ Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   content: {
     flex: 1,
@@ -40,12 +35,10 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#2f95dc',
   },
   subtitle: {
     fontSize: 16,
-    color: 'gray',
     textAlign: 'center',
-    marginBottom: 20,
   },
 });
+

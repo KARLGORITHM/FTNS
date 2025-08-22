@@ -1,31 +1,30 @@
-// app/profile/settings.jsx
-import { View, Text, Switch, StyleSheet, SafeAreaView } from 'react-native';
-import { useContext } from 'react';
-import { ThemeContext } from '../../contexts/ThemeContext'; // Make sure this path is correct
+// /app/profile/settings.jsx
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView, Switch } from 'react-native';
+import { useTheme } from '../../contexts/ThemeContext';
 
 export default function ProfileSettings() {
-  // Get current theme, dark mode state, and toggle function from ThemeContext
-  const { theme, toggleTheme, isDarkMode } = useContext(ThemeContext);
+  // 1️⃣ Get theme and toggle function from context
+  const { theme, themeType, toggleTheme } = useTheme();
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.content}>
-        {/* Page title */}
         <Text style={[styles.title, { color: theme.title }]}>Settings</Text>
-
-        {/* Subtitle / description */}
         <Text style={[styles.subtitle, { color: theme.text }]}>
-          This page will include profile settings, preferences, and account management options.
+          Manage your profile settings, preferences, and account.
         </Text>
 
-        {/* Dark Mode toggle */}
+        {/* 2️⃣ Theme toggle */}
         <View style={styles.toggleContainer}>
-          <Text style={[styles.toggleLabel, { color: theme.text }]}>Dark Mode</Text>
+          <Text style={[styles.toggleLabel, { color: theme.text }]}>
+            Dark Mode
+          </Text>
           <Switch
-            value={isDarkMode}           // current toggle state
-            onValueChange={toggleTheme}  // function to switch dark/light
-            trackColor={{ false: '#ccc', true: theme.primary }}
-            thumbColor={isDarkMode ? theme.primary : '#fff'}
+            value={themeType === 'dark'}
+            onValueChange={toggleTheme}
+            thumbColor={themeType === 'dark' ? theme.iconColorFocused : theme.iconColor}
+            trackColor={{ false: '#767577', true: '#81b0ff' }}
           />
         </View>
       </View>
@@ -33,6 +32,7 @@ export default function ProfileSettings() {
   );
 }
 
+// 3️⃣ Styles
 const styles = StyleSheet.create({
   container: { flex: 1 },
   content: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20 },
@@ -43,8 +43,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '60%',
-    paddingVertical: 15,
+    marginTop: 20,
   },
-  toggleLabel: { fontSize: 18 },
+  toggleLabel: { fontSize: 16 },
 });
+
+
 

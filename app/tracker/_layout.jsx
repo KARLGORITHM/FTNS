@@ -1,35 +1,44 @@
 // app/tracker/_layout.jsx
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import TrackerHome from './index'; // Main tracker screen
-import AddLift from './add';       // Future screen to add a lift
-import History from './history';    // Future screen to see past workouts
+import { useContext } from 'react';
+import TrackerHome from './index';
+import AddLift from './add';
+import History from './history';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 const Stack = createNativeStackNavigator();
 
 export default function TrackerLayout() {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <Stack.Navigator
       initialRouteName="TrackerHome"
       screenOptions={{
-        headerShown: true, // Show headers for nested screens
-        animation: 'slide_from_right', // Smooth screen transitions
+        headerShown: true,
+        animation: 'slide_from_right',
+        headerStyle: {
+          backgroundColor: theme.navBackground, // Header background matches theme
+        },
+        headerTintColor: theme.text,       // Back button & icons match theme
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          fontSize: 20,
+          color: theme.text,               // Title color matches theme
+        },
+        headerShadowVisible: false,             // Optional: remove shadow
       }}
     >
-      {/* Main Tracker tab screen */}
       <Stack.Screen
         name="TrackerHome"
         component={TrackerHome}
         options={{ title: 'Tracker' }}
       />
-
-      {/* Add a lift screen */}
       <Stack.Screen
         name="AddLift"
         component={AddLift}
         options={{ title: 'Add Lift' }}
       />
-
-      {/* Workout history screen */}
       <Stack.Screen
         name="History"
         component={History}
@@ -38,3 +47,6 @@ export default function TrackerLayout() {
     </Stack.Navigator>
   );
 }
+
+
+

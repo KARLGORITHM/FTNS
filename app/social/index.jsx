@@ -1,34 +1,29 @@
-// app/social/index.jsx
-import { View, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
-import { useRouter } from 'expo-router';
+// /app/social/index.jsx
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { useTheme } from '../../contexts/ThemeContext';
 
 export default function Social() {
-  const router = useRouter();
+  // 1️⃣ Get theme from context
+  const { theme } = useTheme();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.content}>
-        {/* Page title */}
-        <Text style={styles.title}>Social Feed</Text>
-        <Text style={styles.subtitle}>
-          This page will display lift highlights, achievements, and posts from other users.
+        <Text style={[styles.title, { color: theme.title }]}>Social Feed</Text>
+        <Text style={[styles.subtitle, { color: theme.text }]}>
+          Here you'll see updates from your friends, workout tips, and shared progress.
         </Text>
-
-        {/* Placeholder navigation button */}
-        <Button
-          title="Go to Tracker"
-          onPress={() => router.push('/tracker')}
-        />
+        {/* Future components: posts, comments, likes, etc. */}
       </View>
     </SafeAreaView>
   );
 }
 
-// Styles for Social tab
+// 2️⃣ Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   content: {
     flex: 1,
@@ -40,12 +35,10 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#2f95dc',
   },
   subtitle: {
     fontSize: 16,
-    color: 'gray',
     textAlign: 'center',
-    marginBottom: 20,
   },
 });
+

@@ -1,12 +1,15 @@
 // /app/tracker/[workoutId].jsx
-import { useContext } from 'react';
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
-import { ThemeContext } from '../../contexts/ThemeContext';
-import { useRouter, useSearchParams } from 'expo-router';
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { useTheme } from '../../contexts/ThemeContext'; // Import ThemeContext hook
+import { useRouter, useLocalSearchParams } from 'expo-router'; // For dynamic route params
 
-export default function WorkoutDetails() {
-  const { theme } = useContext(ThemeContext); // Get the current theme
-  const { workoutId } = useSearchParams(); // Get the dynamic route param
+export default function WorkoutDetail() {
+  // 1️⃣ Get theme from context
+  const { theme } = useTheme();
+
+  // 2️⃣ Get the dynamic workoutId from URL params
+  const { workoutId } = useLocalSearchParams();
   const router = useRouter(); // Optional: for navigation if needed
 
   return (
@@ -16,25 +19,33 @@ export default function WorkoutDetails() {
           Workout Details
         </Text>
         <Text style={[styles.subtitle, { color: theme.text }]}>
-          Viewing details for workout ID: {workoutId}
+          You are viewing the details for workout ID: {workoutId}
         </Text>
-        <Text style={[styles.info, { color: theme.text }]}>
-          This page is a placeholder. Add workout stats, logs, or any other details here.
-        </Text>
+        {/* Future components: display exercises, sets, reps, weights, and stats */}
       </View>
     </SafeAreaView>
   );
 }
 
+// 3️⃣ Styles
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
   content: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 20,
   },
-  title: { fontSize: 28, fontWeight: 'bold', marginBottom: 10 },
-  subtitle: { fontSize: 16, textAlign: 'center', marginBottom: 10 },
-  info: { fontSize: 14, textAlign: 'center' },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
 });
+

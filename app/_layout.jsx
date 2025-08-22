@@ -1,17 +1,18 @@
 // app/_layout.jsx
 import { useEffect, useState, useContext } from 'react';
-import { SafeAreaView } from 'react-native';
+import { View } from 'react-native';
 import { Tabs } from 'expo-router';
 import { supabase } from '../lib/supabase';
 import { Ionicons } from '@expo/vector-icons';
 import { ThemeProvider, ThemeContext } from '../contexts/ThemeContext';
 import { Colors } from '../constants/Colors';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-// DEV toggle to bypass auth for testing navigation
 const DEV_BYPASS_AUTH = true;
 
 function AppLayoutContent() {
-  const { theme } = useContext(ThemeContext); // Consume the theme context
+  const { theme } = useContext(ThemeContext);
+  const insets = useSafeAreaInsets();
   const [session, setSession] = useState(null);
 
   // Check user session on mount
@@ -26,17 +27,14 @@ function AppLayoutContent() {
       setSession(session);
     });
 
-    return () => {
-      listener.subscription.unsubscribe();
-    };
+    return () => listener.subscription.unsubscribe();
   }, []);
 
-  // If no session AND dev bypass is off, show Auth flow
   if (!session && !DEV_BYPASS_AUTH) {
     return (
       <Tabs
         screenOptions={{
-          headerShown: false,
+          headerShown: false, // hide all headers in Tabs
           tabBarStyle: { display: 'none' },
         }}
       >
@@ -45,58 +43,58 @@ function AppLayoutContent() {
     );
   }
 
-  // Show main app tabs
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Tabs
-        screenOptions={{
-          headerShown: false,
-          tabBarActiveTintColor: theme.iconColorFocused || Colors.primary,
-          tabBarInactiveTintColor: theme.iconColor,
-          tabBarStyle: { backgroundColor: theme.navBackground, height: 65 },
+    <Tabs
+      screenOptions={{
+        headerShown: false, // hide all default headers to avoid double headers
+        tabBarActiveTintColor: theme.iconColorFocused || Colors.primary,
+        tabBarInactiveTintColor: theme.iconColor,
+        tabBarStyle: {
+          backgroundColor: theme.navBackground,
+          height: 45 + insets.bottom,
+          paddingBottom: insets.bottom > 0 ? 5 : 0,
+        },
+      }}
+    >
+      <Tabs.Screen
+        name="home"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" size={size} color={color} />,
         }}
-      >
-        <Tabs.Screen
-          name="home"
-          options={{
-            title: 'Home',
-            tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" size={size} color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="tracker"
-          options={{
-            title: 'Tracker',
-            tabBarIcon: ({ color, size }) => <Ionicons name="barbell-outline" size={size} color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="ladderboard"
-          options={{
-            title: 'Ladderboard',
-            tabBarIcon: ({ color, size }) => <Ionicons name="trophy-outline" size={size} color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="profile"
-          options={{
-            title: 'Profile',
-            tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" size={size} color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="social"
-          options={{
-            title: 'Social',
-            tabBarIcon: ({ color, size }) => <Ionicons name="people-outline" size={size} color={color} />,
-          }}
-        />
-      </Tabs>
-    </SafeAreaView>
+      />
+      <Tabs.Screen
+        name="tracker"
+        options={{
+          title: 'Tracker',
+          tabBarIcon: ({ color, size }) => <Ionicons name="barbell-outline" size={size} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="ladderboard"
+        options={{
+          title: 'Ladderboard',
+          tabBarIcon: ({ color, size }) => <Ionicons name="trophy-outline" size={size} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" size={size} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="social"
+        options={{
+          title: 'Social',
+          tabBarIcon: ({ color, size }) => <Ionicons name="people-outline" size={size} color={color} />,
+        }}
+      />
+    </Tabs>
   );
 }
 
-// Wrap everything in ThemeProvider
 export default function AppLayout() {
   return (
     <ThemeProvider>
@@ -104,5 +102,3 @@ export default function AppLayout() {
     </ThemeProvider>
   );
 }
-
-
